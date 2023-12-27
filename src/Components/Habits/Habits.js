@@ -9,13 +9,14 @@ import DeleteHabit from "../../api/DeleteHabit";
 import EditingCard from "../UI/Editing Page/EditingCard";
 
 function Habits() {
+  const [scheduleTime, setScheduleTime] = useState(new Date());
   const [formData, setFormData] = useState({
     title: "",
     frequency: {
-      type: "",
+      type: "Daily",
     },
+    displayFrom: scheduleTime.getTime()
   });
-  const [scheduleTime, setScheduleTime] = useState(new Date());
   const [habits, setHabits] = useState();
   const [refresh, setRefresh] = useState(false);
   const [editHabit, setEditHabit] = useState();
