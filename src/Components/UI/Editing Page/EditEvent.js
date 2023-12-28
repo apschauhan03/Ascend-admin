@@ -3,16 +3,17 @@ import styles from "./EditingCard.module.css";
 import noImage from "../../../assets/no-image.svg";
 import DatePicker from "react-datepicker";
 import ImageUploader from "../../Teams/imageUploader";
+import UpdateEvent from "../../../api/UpdateEvent";
 
 function EditEvent(props) {
   const [eventData, setEventData] = useState(props.data);
-  console.log(eventData);
-  const [editTeamData, setEditTeamData] = useState({
-    _id: props._id,
-    name: props.name,
-    points: props.points,
-    logo: props.logo,
-  });
+  // console.log(eventData);
+  // const [editTeamData, setEditTeamData] = useState({
+  //   _id: props._id,
+  //   name: props.name,
+  //   points: props.points,
+  //   logo: props.logo,
+  // });
   const [startTime, setSelectedStartDate] = useState(
     new Date(eventData.startTime)
   );
@@ -24,10 +25,16 @@ function EditEvent(props) {
   };
   const startDateChangeHandler = (date) => {
     setSelectedStartDate(date);
+    setEventData((prevData) => {
+      return { ...prevData, startTime, endTime };
+    });
     validateDateRange(date, endTime);
   };
   const endDateChangeHandler = (date) => {
     setSelectedEndDate(date);
+    setEventData((prevData) => {
+      return { ...prevData, startTime, endTime };
+    });
     validateDateRange(startTime, date);
   };
 
@@ -65,11 +72,12 @@ function EditEvent(props) {
     });
   };
 
-  const saveEventHandler = () => {
-    setEventData((prevData)=>{
-        return {...prevData,startTime,endTime};
-    })
-    console.log(eventData);
+  const saveEventHandler = async() => {
+    if (isValid) {
+      console.log(eventData);
+      await UpdateEvent(eventData);
+      window.location.reload();
+    }
   };
 
   return (

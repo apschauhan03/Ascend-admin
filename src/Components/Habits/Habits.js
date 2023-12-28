@@ -99,7 +99,6 @@ function Habits() {
             name="freqType"
             onChange={handleChange}
           >
-            <option value="">Type</option>
             <option value="Daily">Daily</option>
             <option value="WeekDay">WeekDay</option>
             <option value="WeekEnd">WeekEnd</option>

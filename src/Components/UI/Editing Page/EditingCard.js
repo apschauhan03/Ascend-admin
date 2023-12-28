@@ -7,7 +7,8 @@ import EditHabit from "./EditHabit";
 
 function EditingCard(props) {
   const cancelEditHandler = () => {
-    props.refresh();
+    if(props.refresh)
+      props.refresh();
     props.setEditPage(false);
   };
 
